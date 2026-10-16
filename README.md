@@ -1,14 +1,15 @@
 <div align="center">
 
-# Sujood
+<img src="docs/images/sujood-banner.svg" alt="Sujood — prayer times, right at home in Omarchy" width="100%">
 
-### Prayer times, right at home in Omarchy. 🕌
+### Your prayers. Your city. Your Omarchy. 🕌
 
-A little mosque in your bar. A clear reminder when it matters.
+A tiny mosque that follows the sky, a countdown that comes alive before prayer,<br>
+and a timetable that wears your favourite theme.
 
-**Regional calculations · Theme-aware colours · A living countdown · Keyboard-first controls**
+**Location-aware calculations** &nbsp; · &nbsp; **Native theme colours** &nbsp; · &nbsp; **Keyboard controls**
 
-[Install](#install) · [Features](#a-quiet-bar-a-clear-reminder) · [Keyboard](#keep-your-hands-on-the-keyboard) · [Under the hood](#under-the-hood)
+[Get started](#install) · [Explore the features](#a-quiet-bar-a-clear-reminder) · [Keyboard shortcuts](#keep-your-hands-on-the-keyboard) · [Under the hood](#under-the-hood) · [Uninstall](#uninstall)
 
 <picture>
   <source media="(prefers-color-scheme: light)" srcset="docs/images/sujood-light.png">
@@ -178,12 +179,29 @@ On first use, Sujood can import the original prayer widget's alert/Asr preferenc
 
 For isolated development, use `SUJOOD_STATE_DIR` or the backend's `--state-dir`. The older `PRAYER_STATE_DIR` override remains supported for compatibility.
 
-## Update or remove
+## Update
 
 ```bash
 omarchy plugin update mxkkyexe.sujood
+```
+
+## Uninstall
+
+Run this in your terminal and confirm the prompt:
+
+```bash
 omarchy plugin remove mxkkyexe.sujood
 ```
+
+Omarchy unloads Sujood and removes its installed plugin folder. Your saved city, preferences, and cached prayer times stay on disk, ready if you reinstall.
+
+For a complete cleanup, you can also delete Sujood's saved state **after uninstalling**. This permanently removes those preferences and cached times:
+
+```bash
+rm -r -- "${XDG_STATE_HOME:-$HOME/.local/state}/omarchy/sujood"
+```
+
+If you configured `SUJOOD_STATE_DIR` or `PRAYER_STATE_DIR`, your state is in that custom directory instead. Any older prayer plugin's files remain separate.
 
 ## Development
 
@@ -196,7 +214,7 @@ python3 tools/check-keyboard.py
 omarchy plugin validate .
 ```
 
-Node is a development-only dependency. The keyboard check uses Quickshell, QtTest, and the installed Omarchy components, with isolated sample state and no network. It exercises real key events, scrolling bounds, focus visibility, city typing, and Escape navigation.
+Node is a development-only dependency. The keyboard check uses Quickshell, QtTest, and the installed Omarchy components, with isolated sample state and no network. It exercises real key events, forced refresh, scrolling bounds, focus visibility, city typing, and Escape navigation.
 
 After editing an SVG:
 

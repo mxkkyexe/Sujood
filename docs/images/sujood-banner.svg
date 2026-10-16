@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-labelledby="title description">
+  <title id="title">Sujood</title>
+  <desc id="description">Prayer times, right at home in Omarchy. Five mosque icons follow dawn, midday, afternoon, sunset, and night.</desc>
+  <rect width="1200" height="300" rx="24" fill="#10171c" />
+  <rect x="1" y="1" width="1198" height="298" rx="23" fill="none" stroke="#293c46" />
+  <path d="M590 42V258" stroke="#293c46" />
+  <text x="56" y="69" fill="#88c0d0" font-family="sans-serif" font-size="13" letter-spacing="1.4">PRAYER TIMES  /  OMARCHY</text>
+  <text x="52" y="152" fill="#eceff4" font-family="sans-serif" font-size="76" font-weight="700">Sujood</text>
+  <text x="56" y="196" fill="#b3bec7" font-family="sans-serif" font-size="19">A little mosque. A moment to pause.</text>
+  <text x="56" y="240" fill="#88c0d0" font-family="sans-serif" font-size="13" letter-spacing="1.4">YOUR CITY  ·  YOUR THEME  ·  YOUR TIMETABLE</text>
+  <circle cx="667" cy="142" r="45" fill="#16232b" />
+  <g transform="translate(632, 106) scale(1.8)">
+    <defs>
+      <clipPath id="sky-Fajr-asset">
+        <path clip-rule="evenodd" d="M-4 -4H46V39H-4Z M12 34V23H13C11.5 17.5 19.4 15.3 23 10C26.6 15.3 34.5 17.5 33 23H34V34Z" />
+      </clipPath>
+    </defs>
+    <g clip-path="url(#sky-Fajr-asset)" fill="#88c0d0" stroke="#88c0d0" stroke-width="1.35" stroke-linecap="round">
+      <g transform="translate(16,14)">
+        <circle r="4.6" stroke="none" />
+        <path d="M6.500 0.000L8.100 0.000 M4.596 4.596L5.728 5.728 M0.000 6.500L0.000 8.100 M-4.596 4.596L-5.728 5.728 M-6.500 0.000L-8.100 0.000 M-4.596 -4.596L-5.728 -5.728 M-0.000 -6.500L-0.000 -8.100 M4.596 -4.596L5.728 -5.728" fill="none" />
+      </g>
+    </g>
+    <g fill="#eceff4">
+      <path fill-rule="evenodd" d="M12 34V23H13C11.5 17.5 19.4 15.3 23 10C26.6 15.3 34.5 17.5 33 23H34V34Z M20.5 34V28.5C20.5 26.5 21.5 25.2 23 24C24.5 25.2 25.5 26.5 25.5 28.5V34Z" />
+      <path d="M3.5 34V18H2V15H3.5V10L7 4L10.5 10V15H12V18H10.5V34Z" />
+      <rect x="2" y="33" width="33" height="2.4" rx=".8" />
+    </g>
+  </g>
+  <text x="667" y="223" fill="#b3bec7" text-anchor="middle" font-family="sans-serif" font-size="14">Fajr</text>
+  <circle cx="775" cy="142" r="45" fill="#16232b" />
+  <g transform="translate(740, 106) scale(1.8)">
+    <defs>
+      <clipPath id="sky-Dhuhr-asset">
+        <path clip-rule="evenodd" d="M-4 -4H46V39H-4Z M12 34V23H13C11.5 17.5 19.4 15.3 23 10C26.6 15.3 34.5 17.5 33 23H34V34Z" />
+      </clipPath>
+    </defs>
+    <g clip-path="url(#sky-Dhuhr-asset)" fill="#88c0d0" stroke="#88c0d0" stroke-width="1.35" stroke-linecap="round">
+      <g transform="translate(23,6.8)">
+        <circle r="4.6" stroke="none" />
+        <path d="M6.500 0.000L8.100 0.000 M4.596 4.596L5.728 5.728 M0.000 6.500L0.000 8.100 M-4.596 4.596L-5.728 5.728 M-6.500 0.000L-8.100 0.000 M-4.596 -4.596L-5.728 -5.728 M-0.000 -6.500L-0.000 -8.100 M4.596 -4.596L5.728 -5.728" fill="none" />
+      </g>
+    </g>
+    <g fill="#eceff4">
+      <path fill-rule="evenodd" d="M12 34V23H13C11.5 17.5 19.4 15.3 23 10C26.6 15.3 34.5 17.5 33 23H34V34Z M20.5 34V28.5C20.5 26.5 21.5 25.2 23 24C24.5 25.2 25.5 26.5 25.5 28.5V34Z" />
+      <path d="M3.5 34V18H2V15H3.5V10L7 4L10.5 10V15H12V18H10.5V34Z" />
+      <rect x="2" y="33" width="33" height="2.4" rx=".8" />
+    </g>
+  </g>
+  <text x="775" y="223" fill="#b3bec7" text-anchor="middle" font-family="sans-serif" font-size="14">Dhuhr</text>
+  <circle cx="883" cy="142" r="45" fill="#16232b" />
+  <g transform="translate(848, 106) scale(1.8)">
+    <defs>
+      <clipPath id="sky-Asr-asset">
+        <path clip-rule="evenodd" d="M-4 -4H46V39H-4Z M12 34V23H13C11.5 17.5 19.4 15.3 23 10C26.6 15.3 34.5 17.5 33 23H34V34Z" />
+      </clipPath>
+    </defs>
+    <g clip-path="url(#sky-Asr-asset)" fill="#88c0d0" stroke="#88c0d0" stroke-width="1.35" stroke-linecap="round">
+      <g transform="translate(30,14)">
+        <circle r="4.6" stroke="none" />
+        <path d="M6.500 0.000L8.100 0.000 M4.596 4.596L5.728 5.728 M0.000 6.500L0.000 8.100 M-4.596 4.596L-5.728 5.728 M-6.500 0.000L-8.100 0.000 M-4.596 -4.596L-5.728 -5.728 M-0.000 -6.500L-0.000 -8.100 M4.596 -4.596L5.728 -5.728" fill="none" />
+      </g>
+    </g>
+    <g fill="#eceff4">
+      <path fill-rule="evenodd" d="M12 34V23H13C11.5 17.5 19.4 15.3 23 10C26.6 15.3 34.5 17.5 33 23H34V34Z M20.5 34V28.5C20.5 26.5 21.5 25.2 23 24C24.5 25.2 25.5 26.5 25.5 28.5V34Z" />
+      <path d="M3.5 34V18H2V15H3.5V10L7 4L10.5 10V15H12V18H10.5V34Z" />
+      <rect x="2" y="33" width="33" height="2.4" rx=".8" />
+    </g>
+  </g>
+  <text x="883" y="223" fill="#b3bec7" text-anchor="middle" font-family="sans-serif" font-size="14">Asr</text>
+  <circle cx="991" cy="142" r="45" fill="#16232b" />
+  <g transform="translate(956, 106) scale(1.8)">
+    <defs>
+      <clipPath id="sky-Maghrib-asset">
+        <path clip-rule="evenodd" d="M-4 -4H46V39H-4Z M12 34V23H13C11.5 17.5 19.4 15.3 23 10C26.6 15.3 34.5 17.5 33 23H34V34Z" />
+      </clipPath>
+    </defs>
+    <defs>
+      <clipPath id="right--asset">
+        <rect x="23" y="-4" width="23" height="43" />
+      </clipPath>
+    </defs>
+    <g clip-path="url(#sky-Maghrib-asset)" fill="#88c0d0" stroke="#88c0d0" stroke-width="1.35" stroke-linecap="round">
+      <g clip-path="url(#right--asset)">
+        <g transform="translate(30,14)">
+          <path stroke="none" d="M-4.6 0A4.6 4.6 0 0 1 4.6 0Z" />
+          <path d="M-6.108 -2.223L-7.612 -2.770 M-3.728 -5.324L-4.646 -6.635 M0.000 -6.500L0.000 -8.100 M3.728 -5.324L4.646 -6.635 M6.108 -2.223L7.612 -2.770 M-8.7 0H8.7" fill="none" />
+        </g>
+      </g>
+    </g>
+    <g fill="#eceff4">
+      <path fill-rule="evenodd" d="M12 34V23H13C11.5 17.5 19.4 15.3 23 10C26.6 15.3 34.5 17.5 33 23H34V34Z M20.5 34V28.5C20.5 26.5 21.5 25.2 23 24C24.5 25.2 25.5 26.5 25.5 28.5V34Z" />
+      <path d="M3.5 34V18H2V15H3.5V10L7 4L10.5 10V15H12V18H10.5V34Z" />
+      <rect x="2" y="33" width="33" height="2.4" rx=".8" />
+    </g>
+  </g>
+  <text x="991" y="223" fill="#b3bec7" text-anchor="middle" font-family="sans-serif" font-size="14">Maghrib</text>
+  <circle cx="1099" cy="142" r="45" fill="#16232b" />
+  <g transform="translate(1064, 106) scale(1.8)">
+    <defs>
+      <clipPath id="sky-Isha-asset">
+        <path clip-rule="evenodd" d="M-4 -4H46V39H-4Z M12 34V23H13C11.5 17.5 19.4 15.3 23 10C26.6 15.3 34.5 17.5 33 23H34V34Z" />
+      </clipPath>
+    </defs>
+    <g clip-path="url(#sky-Isha-asset)" fill="#88c0d0" stroke="#88c0d0" stroke-width="1.35" stroke-linecap="round">
+      <g transform="translate(-0.439703,0)">
+        <path stroke="none" d="M26 2.3C19.6 .8 16.8 7.4 20.6 10.6C23 12.7 26.5 12 28 9.4C24.3 11.3 21.4 9.1 21.4 6.4C21.4 4.4 23 2.7 26 2.3Z" />
+      </g>
+    </g>
+    <g fill="#eceff4">
+      <path fill-rule="evenodd" d="M12 34V23H13C11.5 17.5 19.4 15.3 23 10C26.6 15.3 34.5 17.5 33 23H34V34Z M20.5 34V28.5C20.5 26.5 21.5 25.2 23 24C24.5 25.2 25.5 26.5 25.5 28.5V34Z" />
+      <path d="M3.5 34V18H2V15H3.5V10L7 4L10.5 10V15H12V18H10.5V34Z" />
+      <rect x="2" y="33" width="33" height="2.4" rx=".8" />
+    </g>
+  </g>
+  <text x="1099" y="223" fill="#b3bec7" text-anchor="middle" font-family="sans-serif" font-size="14">Isha</text>
+</svg>
