@@ -126,7 +126,7 @@ Column {
         onClicked: PrayerService.update("showSunrise", !prefs.showSunrise, false)
     }
     Ui.Toggle {
-        width: root.width; label: "Arrival animation"; description: "Sweep the accent through “Now” for one minute"
+        width: root.width; label: "Countdown animation"; description: "Pulse through the progress fill; glow and breathe at prayer time"
         checked: !!prefs.animation; foreground: root.foreground; titleSize: Style.font.bodySmall
         onClicked: PrayerService.update("animation", !prefs.animation, false)
     }
@@ -135,7 +135,7 @@ Column {
         checked: !!prefs.clock24; foreground: root.foreground; titleSize: Style.font.bodySmall
         onClicked: PrayerService.update("clock24", !prefs.clock24, false)
     }
-    Caption { text: "The final 30 minutes fill the countdown with your theme’s accent. At prayer time it shows “Now” for one minute." }
+    Caption { text: "The final 30 minutes fill the countdown with a soft moving pulse in your theme’s accent. At prayer time it shows “Now” for one minute." }
     Ui.Button {
         text: "Preview arrival animation"
         foreground: root.foreground; focusable: true

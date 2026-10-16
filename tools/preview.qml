@@ -121,10 +121,10 @@ ShellRoot {
             Item {
                 anchors.fill:parent
                 visible:preview.mode === "arrival"
-                Text {x:24;y:20;text:"At prayer time · A minute to pause.";color:Color.muted;font.family:Style.font.family;font.pixelSize:14}
+                Text {x:24;y:20;text:"At prayer time · A glow, then a slow breath.";color:Color.muted;font.family:Style.font.family;font.pixelSize:14}
                 Row {
                     x:24;y:62;spacing:16
-                    Sujood.PrayerIcon {anchors.verticalCenter:parent.verticalCenter;anchors.verticalCenterOffset:-2;width:38;height:36;prayer:"Asr";foreground:Color.foreground;accent:Color.accent}
+                    Sujood.PrayerIcon {anchors.verticalCenter:parent.verticalCenter;anchors.verticalCenterOffset:-2;width:38;height:36;prayer:"Asr";foreground:Color.accent;accent:Color.accent}
                     Sujood.CountdownText {id:arrival;anchors.verticalCenter:parent.verticalCenter;text:"Asr | Now";arrival:preview.mode === "arrival";fontFamily:Style.font.family;fontSize:30;foreground:Color.foreground;accent:Color.accent}
                 }
             }

@@ -61,15 +61,15 @@ Sujood reads the active Omarchy theme, including its foreground, accent, muted t
 | State | What you see |
 | --- | --- |
 | More than 30 minutes away | Normal theme foreground; a quiet countdown. |
-| Final 30 minutes | The accent progressively fills the existing text from left to right. At 15 minutes, it is halfway across. |
-| Prayer time | **`Asr | Now`** stays for one minute. A soft accent sweep travels through the letters, returning each part to the normal foreground behind it. |
+| Final 30 minutes | The accent progressively fills the existing text from left to right, with a soft pulse travelling smoothly through the filled portion. At 15 minutes, the fill is halfway across. |
+| Prayer time | **`Asr | Now`** stays for one minute. The whole label briefly brightens, settles into the accent, then breathes gently every three seconds. The mosque icon stays accented for that minute. |
 | Incoming prayer in the panel | A full-row highlight, accent strip, bold name/time, and **Next** badge. At arrival, the badge becomes **Now**. |
 | After Isha | Fajr is marked **Next · Tomorrow** and shows tomorrow's actual Fajr time; the remaining rows still show today's times. |
 | Sunrise | Muted in the timetable unless it is the selected next event. |
 
-![The accent moving through the arrival text](docs/images/arrival.gif)
+![The arrival label glowing and breathing](docs/images/arrival.gif)
 
-The countdown advances to the next event after that minute. Prefer stillness? Turn off **Arrival animation** to keep a static accented **Now** label.
+The countdown advances to the next event after that minute. Prefer stillness? Turn off **Countdown animation** to keep a static progress fill and accented **Now** label.
 
 ### 📍 Your timetable, without the clutter
 
@@ -130,7 +130,7 @@ Settings also include:
 - **Standard or Hanafi Asr**, independently of the calculation method.
 - **Angle-based, middle-of-night, or one-seventh high-latitude handling**.
 - **Per-prayer minute offsets** from −60 to +60 minutes.
-- **12- or 24-hour time**, bar countdown visibility, sunrise visibility, alerts, sound, and arrival animation.
+- **12- or 24-hour time**, bar countdown visibility, sunrise visibility, alerts, sound, and countdown animation.
 
 Aladhan labels its Turkey and Dubai methods experimental; Sujood preserves that label in the selector. Regional defaults are a starting point—use your local mosque's method and adjustments where appropriate.
 

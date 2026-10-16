@@ -47,7 +47,7 @@ Ui.BarWidget {
                 width: Math.round(Style.bar.iconCanvas * 1.15)
                 height: Math.round(Style.bar.iconCanvas * 1.15)
                 prayer: root.phaseName
-                foreground: button.foreground
+                foreground: service.status.phase === "arrival" ? Color.accent : button.foreground
                 accent: Color.accent
             }
             CountdownText {
