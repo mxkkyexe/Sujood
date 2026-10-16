@@ -89,6 +89,11 @@ Item {
         event.accepted = false
         if (event.modifiers & (Qt.ControlModifier | Qt.AltModifier | Qt.MetaModifier)) return
         if (root.editingLocation) return
+        if (event.key === Qt.Key_R) {
+            root.service.sync(true)
+            event.accepted = true
+            return
+        }
         if (!root.settingsOpen) {
             if (event.key === Qt.Key_S) {
                 root.settingsOpen = true
@@ -369,7 +374,7 @@ Item {
         }
         Text {
             width: parent.width
-            text: "C City · S Settings · Esc Close"
+            text: "C City · S Settings · R Refresh · Esc Close"
             color: Color.muted
             font.family: Style.font.family; font.pixelSize: Style.font.caption
             wrapMode: Text.WordWrap
@@ -411,7 +416,7 @@ Item {
         Text {
             id: settingsHelp
             width: parent.width
-            text: "J/K or ↑/↓ Scroll · PgUp/PgDn Page\nTab Controls · Enter/Space Select · Esc Back"
+            text: "J/K or ↑/↓ Scroll · PgUp/PgDn Page\nTab Controls · Enter/Space Select · R Refresh · Esc Back"
             color: Color.muted
             font.family: Style.font.family; font.pixelSize: Style.font.caption
             wrapMode: Text.WordWrap

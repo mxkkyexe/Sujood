@@ -98,6 +98,7 @@ These shortcuts work **while the panel is open**:
 | --- | --- |
 | **S** | Open settings |
 | **C** | Edit the city |
+| **R** | Refresh cached prayer times (timetable or settings) |
 | **J / K** or **↓ / ↑** | Scroll settings down / up |
 | **Page Down / Page Up** | Move a page |
 | **Home / End** | Jump to the top / bottom |
@@ -105,7 +106,9 @@ These shortcuts work **while the panel is open**:
 | **Enter / Space** | Activate a button, choice, or toggle |
 | **Esc** | Cancel city editing, return from settings, or close the timetable |
 
-City search keeps normal typing and uses arrow keys plus Enter for suggestions. Hints appear in each page's footer. Right- or middle-clicking the bar icon refreshes the calendar.
+Press **R** in the timetable or settings to re-fetch both cached calendar months. Right- or middle-clicking the bar icon does the same. Existing cached times remain available if the refresh fails.
+
+City search keeps normal typing and uses arrow keys plus Enter for suggestions. Hints appear in each page's footer.
 
 Want your own desktop binding? Bind this command through your Hyprland configuration:
 

@@ -40,7 +40,7 @@ with tempfile.TemporaryDirectory(prefix='sujood-keyboard-') as temporary:
              XDG_RUNTIME_DIR=str(runtime),XDG_CACHE_HOME=str(base/'cache'),SUJOOD_STATE_DIR=str(state),WAYLAND_DISPLAY='')
     result=subprocess.run(['quickshell','-p',str(base),'--no-color'],env=env,text=True,capture_output=True,timeout=12)
     output=result.stdout+result.stderr
-    marker='Keyboard checks passed: navigation, scroll bounds, Tab visibility, city typing, Escape'
+    marker='Keyboard checks passed: refresh, navigation, scroll bounds, Tab visibility, city typing, Escape'
     if result.returncode or marker not in output:
         print(output)
         sys.exit(1)

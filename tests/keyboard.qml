@@ -29,14 +29,36 @@ ShellRoot {
             }
             return null
         }
+        function checkRefreshShortcut() {
+            // Hold refreshes in the service queue so this test never needs the network.
+            var service=Prayer.PrayerService
+            compare(service.busy,false)
+            service.ready=false
+            try {
+                service.queued=false
+                service.forceQueued=false
+                keyClick(Qt.Key_R,Qt.ControlModifier)
+                compare(service.queued,false,"Ctrl+R does not trigger the plain R shortcut")
+                keyClick(Qt.Key_R)
+                compare(service.queued,true,"R requests a refresh")
+                compare(service.forceQueued,true,"R forces cached months to be fetched again")
+            } finally {
+                service.queued=false
+                service.forceQueued=false
+                service.ready=true
+            }
+        }
         function test_panel_shortcuts() {
             tryVerify(function() {return Prayer.PrayerService.ready},2000)
+            tryVerify(function() {return !Prayer.PrayerService.busy},2000)
             win.requestActivate()
             panel.forceActiveFocus()
             wait(30)
+            checkRefreshShortcut()
             keyClick(Qt.Key_S)
             wait(30)
             compare(panel.settingsOpen,true)
+            checkRefreshShortcut()
             var scroll=find(panel,"settingsScroll")
             verify(scroll.contentHeight>scroll.height)
             keyClick(Qt.Key_J);verify(scroll.contentY>0)
@@ -64,12 +86,20 @@ ShellRoot {
             keyClick(Qt.Key_S)
             compare(panel.settingsOpen,false)
             verify(field.text.toLowerCase().indexOf('s')!==-1,"S types in the city field")
+            Prayer.PrayerService.ready=false
+            try {
+                keyClick(Qt.Key_R)
+                verify(field.text.toLowerCase().indexOf('r')!==-1,"R types in the city field")
+                compare(Prayer.PrayerService.queued,false,"City typing does not request a refresh")
+            } finally {
+                Prayer.PrayerService.ready=true
+            }
             keyClick(Qt.Key_Escape);wait(30)
             compare(panel.editingLocation,false)
             compare(panel.closes,0)
             keyClick(Qt.Key_Escape)
             compare(panel.closes,1)
-            console.log("Keyboard checks passed: navigation, scroll bounds, Tab visibility, city typing, Escape")
+            console.log("Keyboard checks passed: refresh, navigation, scroll bounds, Tab visibility, city typing, Escape")
 
         }
     }
