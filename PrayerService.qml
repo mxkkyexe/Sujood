@@ -47,7 +47,8 @@ QtObject {
         action = "sync"
         activeRevision = revision
         lastSync = Date.now()
-        worker.command = ["python3", backend, "sync", JSON.stringify({settings:prefs, force:!!force})]
+        worker.payload = JSON.stringify({settings:prefs, force:!!force})
+        worker.command = ["python3", backend, "sync", "--stdin"]
         worker.running = true
     }
     function search(text) {
@@ -60,7 +61,8 @@ QtObject {
     function runSearch() {
         if (searcher.running || searchQuery.length < 2) return
         activeQuery = searchQuery
-        searcher.command = ["python3", backend, "search", JSON.stringify({query:activeQuery})]
+        searcher.payload = JSON.stringify({query:activeQuery})
+        searcher.command = ["python3", backend, "search", "--stdin"]
         searcher.running = true
     }
     function tick() {
@@ -70,7 +72,8 @@ QtObject {
             var key = prayer.date+":"+prayer.name
             if (lastAlert !== key && !alerter.running) {
                 lastAlert = key
-                alerter.command = ["python3", backend, "alert", JSON.stringify(prayer)]
+                alerter.payload = JSON.stringify(prayer)
+                alerter.command = ["python3", backend, "alert", "--stdin"]
                 alerter.running = true
             }
         }
@@ -83,6 +86,12 @@ QtObject {
     }
     property Process worker: Process {
         id: worker
+        property string payload: ""
+        stdinEnabled: true
+        onStarted: {
+            if (payload !== "") write(payload + "\n")
+            payload = ""
+        }
         stdout: StdioCollector {
             onStreamFinished: {
                 var result = Model.parse(text, {error:"Could not read prayer data"})
@@ -110,9 +119,17 @@ QtObject {
     property Timer clock: Timer { interval: 1000; running: true; repeat: true; onTriggered: root.tick() }
     property Timer saveDelay: Timer { interval: 250; onTriggered: root.sync(false) }
     property Timer searchDelay: Timer { interval: 300; onTriggered: root.runSearch() }
-    property Process alerter: Process { id: alerter }
+    property Process alerter: Process {
+        id: alerter
+        property string payload: ""
+        stdinEnabled: true
+        onStarted: { write(payload + "\n"); payload = "" }
+    }
     property Process searcher: Process {
         id: searcher
+        property string payload: ""
+        stdinEnabled: true
+        onStarted: { write(payload + "\n"); payload = "" }
         stdout: StdioCollector {
             onStreamFinished: {
                 if (root.activeQuery !== root.searchQuery) return

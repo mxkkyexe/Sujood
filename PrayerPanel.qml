@@ -181,6 +181,7 @@ Item {
                         objectName: "locationField"
                         width: parent.width - cancelCity.width - parent.spacing
                         placeholderText: "Search city…"
+                        maximumLength: 160
                         foreground: Color.popups.text
                         Accessible.name: "Search for a city"
                         onTextEdited: service.search(text)

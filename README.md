@@ -20,7 +20,7 @@ and a timetable that wears your favourite theme.
 
 ## Install
 
-Sujood **0.1.0** is an **Omarchy Quickshell bar plugin**. It needs the Omarchy shell that provides `qs.Commons`, `qs.Ui`, and the `omarchy plugin` commands. It does not run inside a terminal or TUI, or on an older Waybar-only installation.
+Sujood **0.1.1** is an **Omarchy Quickshell bar plugin**. It needs the Omarchy shell that provides `qs.Commons`, `qs.Ui`, and the `omarchy plugin` commands. It does not run inside a terminal or TUI, or on an older Waybar-only installation.
 
 From a terminal in your Omarchy desktop session:
 
@@ -174,6 +174,8 @@ State lives in `$XDG_STATE_HOME/omarchy/sujood/`, normally:
 ```
 
 Your city search text goes to Open-Meteo; coordinates and calculation options go to Aladhan. Preferences and cached calendars stay on your machine. There is no Sujood account, analytics, or tracking service.
+
+The widget sends helper payloads through stdin so city searches and saved coordinates do not appear in helper command lines. Network requests are restricted to the two providers over verified HTTPS; redirects are rejected and each response is limited to 2 MiB. Oversized or rejected refreshes keep the matching cached timetable available.
 
 On first use, Sujood can import the original prayer widget's alert/Asr preferences and Omarchy weather location. It also preserves settings, cached dates, and notification claims from the pre-release `makkyexe.prayer` version. Later location changes in Sujood do not change weather.
 

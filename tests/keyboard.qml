@@ -51,6 +51,9 @@ ShellRoot {
         function test_panel_shortcuts() {
             tryVerify(function() {return Prayer.PrayerService.ready},2000)
             tryVerify(function() {return !Prayer.PrayerService.busy},2000)
+            compare(Prayer.PrayerService.error, "", "Real stdin sync succeeds")
+            compare(Prayer.PrayerService.worker.command.length, 4)
+            compare(Prayer.PrayerService.worker.command[3], "--stdin", "Location payload stays out of argv")
             win.requestActivate()
             panel.forceActiveFocus()
             wait(30)

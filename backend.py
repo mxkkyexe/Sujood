@@ -12,8 +12,8 @@ from pathlib import Path
 import subprocess
 import sys
 import tempfile
-from urllib.parse import urlencode
-from urllib.request import Request, urlopen
+from urllib.parse import urlencode, urlsplit
+from urllib.request import Request, HTTPRedirectHandler, build_opener
 from urllib.error import URLError
 from zoneinfo import ZoneInfo
 
@@ -37,6 +37,19 @@ REGIONS = {'US': 2, 'CA': 2, 'MX': 2, 'PK': 1, 'IN': 1, 'BD': 1, 'AF': 1,
 DEFAULTS = dict(version=1, location=None, method='auto', school=0, highLatitude=3,
                 alerts=True, sound=True, countdown=True, animation=True, clock24=False, showSunrise=False,
                 offsets={name: 0 for name in PRAYERS})
+MAX_RESPONSE_BYTES = 2 * 1024 * 1024
+MAX_PAYLOAD_BYTES = 64 * 1024
+MAX_SEARCH_LENGTH = 160
+SERVICE_HOSTS = frozenset(('api.aladhan.com', 'geocoding-api.open-meteo.com'))
+
+
+class RejectRedirects(HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        raise ValueError('The service redirected the request; refresh was blocked for security.')
+
+
+def display_text(value, limit):
+    return ''.join(char for char in str(value)[:limit] if char.isprintable())
 
 
 def read_json(path, fallback=None):
@@ -60,12 +73,23 @@ def atomic_json(path, data):
 
 
 def get_json(url, params):
+    target = urlsplit(url)
+    if (target.scheme != 'https' or target.hostname not in SERVICE_HOSTS
+            or target.username is not None or target.password is not None
+            or target.port not in (None, 443)):
+        raise ValueError('Only approved HTTPS prayer and location services are allowed')
     req = Request(url + '?' + urlencode(params), headers={'User-Agent': 'Sujood/0.1', 'Accept': 'application/json'})
     try:
-        with urlopen(req, timeout=12) as response:
-            result = json.load(response)
+        with build_opener(RejectRedirects()).open(req, timeout=12) as response:
+            raw = response.read(MAX_RESPONSE_BYTES + 1)
     except (URLError, TimeoutError, OSError) as exc:
         raise ValueError('Cannot reach the service. Check your connection; a retry is scheduled.') from exc
+    if len(raw) > MAX_RESPONSE_BYTES:
+        raise ValueError('The service response was too large; refresh was blocked for security.')
+    try:
+        result = json.loads(raw)
+    except (ValueError, RecursionError) as exc:
+        raise ValueError('The service returned invalid JSON') from exc
     if not isinstance(result, dict) or result.get('error') or result.get('code', 200) != 200:
         raise ValueError('The prayer or location service returned an error')
     return result
@@ -79,11 +103,13 @@ def normalize_location(loc):
         if not math.isfinite(lat) or not math.isfinite(lon) or not (-90 <= lat <= 90 and -180 <= lon <= 180):
             return None
         zone = str(loc.get('timezone', ''))
+        if len(zone) > 128:
+            return None
         if zone:
             ZoneInfo(zone)
-        return dict(name=str(loc['name'])[:160], latitude=lat, longitude=lon,
+        return dict(name=display_text(loc['name'], 160), latitude=lat, longitude=lon,
                     countryCode=str(loc.get('countryCode', loc.get('country_code', ''))).upper()[:2],
-                    region=str(loc.get('region', ''))[:200], timezone=zone)
+                    region=display_text(loc.get('region', ''), 200), timezone=zone)
     except (ValueError, KeyError, TypeError):
         return None
 
@@ -110,12 +136,19 @@ def normalize_settings(raw):
 
 
 def search(query):
+    if not isinstance(query, str) or len(query.strip()) > MAX_SEARCH_LENGTH:
+        raise ValueError('City searches must contain at most 160 characters')
     if len(query.strip()) < 2:
         return []
     data = get_json('https://geocoding-api.open-meteo.com/v1/search',
                     dict(name=query.strip(), count=10, language='en', format='json'))
     results = []
-    for r in data.get('results', []):
+    matches = data.get('results', [])
+    if not isinstance(matches, list):
+        raise ValueError('The location service returned invalid search results')
+    for r in matches[:10]:
+        if not isinstance(r, dict):
+            continue
         loc = normalize_location(dict(r, region=', '.join(filter(None, [r.get('admin1'), r.get('country')]))))
         if loc and loc['timezone']:
             results.append(loc)
@@ -193,7 +226,7 @@ def parse_day(data, settings, zone):
     return dict(date=d.isoformat(), label=d.strftime('%a, %d %b %Y'),
                 start=int(datetime.combine(d, time(), zone).timestamp()*1000),
                 end=int(datetime.combine(d+timedelta(days=1), time(), zone).timestamp()*1000),
-                hijri=f"{hijri['day']} {hijri['month']['en']} {hijri['year']} AH", rows=rows)
+                hijri=display_text(f"{hijri['day']} {hijri['month']['en']} {hijri['year']} AH", 128), rows=rows)
 
 
 def fetch_month(settings, year, month):
@@ -286,12 +319,20 @@ def alert(state, payload):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('action', choices=['load', 'sync', 'search', 'alert'])
-    parser.add_argument('payload', nargs='?', default='{}')
+    parser.add_argument('payload', nargs='?', help='Legacy JSON argument; prefer --stdin for private data')
+    parser.add_argument('--stdin', action='store_true', help='Read one JSON payload line from stdin')
     parser.add_argument('--state-dir', type=Path, default=Path(os.environ.get('SUJOOD_STATE_DIR') or os.environ.get('PRAYER_STATE_DIR') or
                         str(Path(os.environ.get('XDG_STATE_HOME', str(Path.home()/'.local/state'))) / 'omarchy/sujood')))
     args = parser.parse_args()
-    payload = json.loads(args.payload)
     try:
+        if args.stdin and args.payload is not None:
+            raise ValueError('Choose stdin or a legacy payload argument, not both')
+        raw = sys.stdin.buffer.readline(MAX_PAYLOAD_BYTES + 1) if args.stdin else (args.payload or '{}').encode('utf-8')
+        if len(raw) > MAX_PAYLOAD_BYTES:
+            raise ValueError('The request payload is too large')
+        payload = json.loads(raw)
+        if not isinstance(payload, dict):
+            raise ValueError('The request payload must be a JSON object')
         if args.action == 'search':
             result = dict(results=search(payload.get('query', '')))
         elif args.action == 'load':
