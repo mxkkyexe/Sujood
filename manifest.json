@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "mxkkyexe.sujood",
+  "name": "Sujood",
+  "version": "0.1.0",
+  "author": "mxkkyexe",
+  "description": "Prayer times, right at home in Omarchy. Regional calculations, themed mosque icons, and a living countdown.",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "BarWidget.qml"
+  },
+  "barWidget": {
+    "displayName": "Sujood",
+    "description": "Prayer timetable, regional methods, themed countdowns, and keyboard controls",
+    "category": "Info",
+    "allowMultiple": false,
+    "defaultSection": "center"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/mxkkyexe/sujood"
+}

@@ -1,0 +1,7 @@
+singleton PrayerService 1.0 PrayerService.qml
+BarWidget 1.0 BarWidget.qml
+PrayerPanel 1.0 PrayerPanel.qml
+PrayerIcon 1.0 PrayerIcon.qml
+CountdownText 1.0 CountdownText.qml
+SettingsView 1.0 SettingsView.qml
+SettingChoice 1.0 SettingChoice.qml
