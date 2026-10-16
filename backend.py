@@ -309,8 +309,13 @@ def alert(state, payload):
         notified = {k:v for k,v in notified.items() if now-v < 3*86400000}
         notified[identity] = now
         atomic_json(state / 'notified.json', notified)
+    notification_time = found['time']
+    if not prefs['clock24']:
+        hour, minute = notification_time.split(':')
+        hour = int(hour)
+        notification_time = f"{hour % 12 or 12}:{minute} {'PM' if hour >= 12 else 'AM'}"
     subprocess.run(['notify-send', '-a', 'Sujood', '-u', 'normal', '-t', '8000',
-                    found['name'], f"It's time for {found['name']} · {found['time']}"], check=False, timeout=5)
+                    found['name'], f"It's time for {found['name']} · {notification_time}"], check=False, timeout=5)
     if prefs['sound']:
         subprocess.Popen(['paplay', '/usr/share/sounds/freedesktop/stereo/bell.oga'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     return {'notified': True}

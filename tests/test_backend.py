@@ -99,6 +99,22 @@ class BackendTests(unittest.TestCase):
             b.atomic_json(state/'calendar.json',dict(key=b.cache_key(p),days=[{'rows':[row]}]))
             self.assertFalse(b.alert(state,row)['notified'])
 
+    def test_alert_uses_clock_preference(self):
+        for clock24 in (False, True):
+            for time, twelve_hour in [('00:05', '12:05 AM'), ('05:07', '5:07 AM'),
+                                      ('12:00', '12:00 PM'), ('15:42', '3:42 PM')]:
+                with self.subTest(clock24=clock24, time=time), tempfile.TemporaryDirectory() as td:
+                    state = Path(td)
+                    p = prefs(sound=False, clock24=clock24)
+                    row = dict(name='Asr', at=int(datetime.now(timezone.utc).timestamp()*1000)-1000,
+                               date='2026-10-15', time=time)
+                    b.atomic_json(state/'settings.json', p)
+                    b.atomic_json(state/'calendar.json', dict(key=b.cache_key(p), days=[{'rows': [row]}]))
+                    with patch.object(b.subprocess, 'run') as run:
+                        self.assertTrue(b.alert(state, row)['notified'])
+                    expected = time if clock24 else twelve_hour
+                    self.assertEqual(run.call_args.args[0][-1], f"It's time for Asr · {expected}")
+
     def test_sujood_migration_preserves_preferences_cache_and_alert_claims(self):
         with tempfile.TemporaryDirectory() as td:
             legacy=Path(td)/'prayer'; state=Path(td)/'sujood'
