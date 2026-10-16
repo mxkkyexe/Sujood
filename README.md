@@ -25,7 +25,7 @@ Sujood **0.1.0** is an **Omarchy Quickshell bar plugin**. It needs the Omarchy s
 From a terminal in your Omarchy desktop session:
 
 ```bash
-omarchy plugin add https://github.com/mxkkyexe/sujood.git --enable
+omarchy plugin add https://github.com/mxkkyexe/Sujood.git --enable
 ```
 
 Choose a bar section when prompted. Open the mosque icon, then click the city name—or press **C**—to choose your location. If an existing Omarchy weather location is available, Sujood uses it as a starting point. Your prayer location is independent after that.
